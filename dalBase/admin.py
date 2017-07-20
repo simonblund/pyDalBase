@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import User, Incident, UnderWay
+
+admin.site.register(User)
+admin.site.register(Incident)
+admin.site.register(UnderWay)
+
+

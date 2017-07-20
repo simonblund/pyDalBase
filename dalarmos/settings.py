@@ -27,18 +27,22 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = 'dalBase.User'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+    'dalBase.apps.DalbaseConfig',
+    'oauth2_provider',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
     'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'sv-SE'
 
-TIME_ZONE = 'Finland/Helsinki'
+TIME_ZONE = 'Europe/Helsinki'
 
 USE_I18N = True
 
