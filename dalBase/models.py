@@ -3,13 +3,14 @@ from django.db import models
 # Extend the user model
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.contrib.contenttypes.fields import GenericForeignKey
 
 
 class User(AbstractUser):
-    vacancy = models.CharField(max_length=30, blank=True)
+    vacancy = models.CharField(max_length=30)
     competences = models.CharField(max_length=30, blank=True)
     driverslicence = models.CharField(max_length=30, blank=True)
-    primary_phone = models.CharField(max_length=30, blank=True)
+    primary_phone = models.CharField(max_length=30, unique=True)
     secondary_phone = models.CharField(max_length=30, blank=True)
     telegram_id = models.CharField(max_length=60, blank=True)
     street_address = models.CharField(max_length=60, blank=True)
@@ -33,10 +34,17 @@ class Incident(models.Model):
     created_at = models.DateTimeField(auto_now=True, auto_created=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return '{} by {}'.format(self.address, self.created_at)
+
 
 class UnderWay(models.Model):
-    incident = models.ForeignKey('Incident', on_delete=models.CASCADE)
-    telephone = models.CharField(max_length=30, blank=True)
+    id = models.BigAutoField(primary_key=True)
+    incident = models.ForeignKey(Incident, null=True)
+    telephone = models.ForeignKey(User, to_field="primary_phone")
     time = models.CharField(max_length=30, blank=True)
     created_at = models.DateTimeField(auto_now=True, auto_created=True)
+
+    def __str__(self):
+        return '{} buy {}'.format(self.telephone.vacancy, self.created_at)
 

@@ -1,15 +1,15 @@
 
-
-
 const vm = new Vue({
     el: '#incidentContainer',
     delimiters: ["[[","]]"],
     data: {
-     incident: []
+     incident: [],
+     underways: []
     },
 
     mounted() {
-            this.getIncident()
+            this.getIncident(),
+            this.getUnderway()
     },
 
     methods: {
@@ -17,9 +17,16 @@ const vm = new Vue({
             axios.get('api/v1/incident?format=json')
               .then(function (response) {
                 vm.incident = response.data[0]
-
-                console.log(response);
-                console.log(incident)
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+          },
+          getUnderway () {
+            axios.get('api/v1/underway?format=json')
+              .then(function (response) {
+                vm.underways = response.data
+                console.log(response.data)
               })
               .catch(function (error) {
                 console.log(error);
