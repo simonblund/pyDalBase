@@ -1,5 +1,6 @@
-
+import Vue from 'vue';
 Vue.use(require('vue-moment'));
+
 const vm = new Vue({
     el: '#incidentContainer',
     delimiters: ["[[","]]"],

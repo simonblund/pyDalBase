@@ -32,7 +32,7 @@ class UnderWaySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UnderWay
-        fields = ('id', 'incident', 'time', 'telephone')
+        fields = ('id', 'incident', 'time', 'telephone', 'created_at')
         read_only_fields = ('created_at', 'id')
 
 
