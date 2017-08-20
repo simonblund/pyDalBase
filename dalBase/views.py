@@ -1,16 +1,26 @@
 
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
 from rest_framework import generics
 from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST
 from .models import Incident, UnderWay, User
-import logging
-logger = logging.getLogger(__name__)
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
 def index(request):
     return render(request, 'index.html', content_type='text/html')
+
+
+@login_required(login_url='/dalBase/login/')
+def profile(request):
+    user = ''
+    if request.user.is_authenticated:
+        user = request.user
+        args: {'user': user}
+        return render(request, 'parts/profile.html', args, content_type='text/html')
+    return render(request, 'index.html', content_type='text/html')    
+# API VIEWS
 
 
 class IncidentsApiView(generics.ListCreateAPIView):

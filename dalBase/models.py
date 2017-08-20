@@ -20,6 +20,9 @@ class User(AbstractUser):
     fire_department = models.CharField(max_length=20, blank=True)
     birth_date = models.DateField(null=True, blank=True)
 
+    def __str__(self):
+        return '{} by {}'.format(self.vacancy, self.primary_phone)
+
 
 class Incident(models.Model):
     active = models.BooleanField(default=False)

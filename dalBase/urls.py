@@ -11,6 +11,7 @@ from . import views
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^login/$', login, {'template_name': 'dalbase/login.html'}),
+    url(r'^profile/$', views.profile, name='profile'),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
 
