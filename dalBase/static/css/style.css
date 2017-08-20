@@ -2,12 +2,16 @@
 .dark-primary-color    { background: #303F9F; }
 .default-primary-color { background: #3F51B5; }
 .light-primary-color   { background: #C5CAE9; }
-.text-primary-color    { color: #FFFFFF; }
+.text-primary-color    { color: #FFF; }
 .accent-color          { background: #FF5252; }
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
 
+
+.nav-item a{
+    color: #FFF;
+}
 .login-page--body-div{
     background-image: url("/static/img/mindrstrfbk.jpg");
     background-repeat: no-repeat;

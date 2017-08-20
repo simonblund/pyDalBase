@@ -8,14 +8,57 @@
     <div class="row">
         <div class="col-md-8">
             <div class="panel panel-default">
-                <div class="panel-heading"> </div>
+                <div class="panel-heading">
+                <span><b>Din profilinformation</b></span>
+                </div>
 
                 <div class="panel-body">
                     <table class="table">
                         <tr>
                             <th>Vakans</th>
-                            <td></td>
+                            <td>{{user.vacancy}}</td>
                         </tr>
+                        <tr>
+                            <th>Förnamn</th>
+                            <td>{{user.first_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Efternamn</th>
+                            <td>{{user.last_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Primär telefon</th>
+                            <td>{{user.primary_phone}}</td>
+                        </tr>
+                        <tr>
+                            <th>Sekundär telefon</th>
+                            <td>{{user.secondary_phone}}</td>
+                        </tr>
+                        <tr>
+                            <th>Telegram ID</th>
+                            <td>{{user.telegram_id}}</td>
+                        </tr>
+                        <tr>
+                            <th>Gatuadress</th>
+                            <td>{{user.street_address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Stad</th>
+                            <td>{{user.city_address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Postnummer och land</th>
+                            <td>{{user.postcode_address}} {{user.country_address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Brandkår</th>
+                            <td>{{user.fire_department}}</td>
+                        </tr>
+                        <tr>
+                            <th>Födelsedag</th>
+                            <td>{{user.birth_date}}</td>
+                        </tr>
+
 
                     </table>
                 </div>

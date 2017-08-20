@@ -49,40 +49,19 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
+                    {% if user.is_authenticated %}
+
                     <ul class="nav navbar-nav navbar-right text-primary-color">
                         <!-- Authentication Links -->
-
-                            <li class="nav-item text-primary-color"><a href="">Login</a></li>
-                            <li class="nav-item text-primary-color"><a href="">Register</a></li>
-
+                            <li class="nav-item text-primary-color"><a href="/admin">Administration</a></li>
                             <li class="nav-item dropdown ">
                                 <a href="#" class="dropdown-toggle text-primary-color" data-toggle="dropdown" role="button"  aria-expanded="false">
-                                     Administration <span class="caret"></span>
+                                     {{ request.user.vacancy }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu dropdown" role="menu">
                                     <li>
-                                        <a href="/admin/roles">Roller</a>
-                                    </li>
-                                    <li>
-                                        <a href="/admin/api-users">API-användare</a>
-                                    </li>
-                                    <li>
-                                        <a href="/admin/vehicles">Fordon</a>
-                                    </li>
-
-                                </ul>
-                            </li>
-
-
-                            <li class="nav-item dropdown ">
-                                <a href="#" class="dropdown-toggle text-primary-color" data-toggle="dropdown" role="button"  aria-expanded="false">
-                                     Användare <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu dropdown" role="menu">
-                                    <li>
-                                        <a href="/self-edit">Personliga inställningar</a>
+                                        <a href="/dalBase/profile">Personliga inställningar</a>
                                     </li>
                                     <li class="text-primary-color">
                                         <a href="/logout"
@@ -90,9 +69,7 @@
                                                      document.getElementById('logout-form').submit();">
                                             Logga ut
                                         </a>
-
                                         <form id="logout-form" action="" method="POST" style="display: none;">
-
                                         </form>
                                     </li>
                                 </ul>
@@ -100,6 +77,7 @@
 
 
                     </ul>
+                    {% endif %}
                 </div>
             </div>
         </nav>

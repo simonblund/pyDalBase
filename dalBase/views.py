@@ -17,7 +17,8 @@ def profile(request):
     user = ''
     if request.user.is_authenticated:
         user = request.user
-        args: {'user': user}
+        args = {'user': user}
+        
         return render(request, 'parts/profile.html', args, content_type='text/html')
     return render(request, 'index.html', content_type='text/html')    
 # API VIEWS
