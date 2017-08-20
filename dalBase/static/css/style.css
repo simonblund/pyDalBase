@@ -7,3 +7,35 @@
 .primary-text-color    { color: #212121; }
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
+
+.login-page--body-div{
+    background-image: url("/static/img/mindrstrfbk.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}
+
+.login-page--header-div{
+    background-color: rgba(30,30,30, 0.9);
+    color: #FFF;
+}
+
+.login-page--login-row-div{
+    padding-top: 4rem;
+}
+
+.panel-login > .panel-body {
+	background-color: transparent;
+	color: #BDBDBD;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-radius: 4px 4px 0px 0px;
+	border-bottom: none;
+	text-align: right;
+
+	}
+
+.panel.panel-login{
+    background-color: rgba(30,30,30, 0.8);
+}

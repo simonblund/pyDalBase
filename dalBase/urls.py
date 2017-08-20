@@ -2,6 +2,7 @@
 from django.conf.urls import url
 from django.conf.urls import include
 from rest_framework.urlpatterns import format_suffix_patterns
+from django.contrib.auth.views import login
 
 from .views import IncidentsApiView, LastIncidentApiView, UnderWayApiView
 
@@ -9,6 +10,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^login/$', login, {'template_name': 'dalbase/login.html'}),
     url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 
 
