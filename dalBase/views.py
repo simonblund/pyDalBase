@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required(login_url='/dalBase/login/') 
 def index(request):
     return render(request, 'index.html', content_type='text/html')
 
@@ -16,9 +16,7 @@ def index(request):
 def profile(request):
     user = ''
     if request.user.is_authenticated:
-        user = request.user
-        args = {'user': user}
-        
+        args = {'user': request.user }
         return render(request, 'parts/profile.html', args, content_type='text/html')
     return render(request, 'index.html', content_type='text/html')    
 # API VIEWS
