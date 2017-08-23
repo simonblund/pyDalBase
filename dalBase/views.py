@@ -14,10 +14,9 @@ def index(request):
 
 
 @login_required(login_url='/dalBase/login/')
-def incidentlist(request):
-    incidents = {'incidents': Incident.objects.all()}
+def reports(request):
     incident_reports = {'incident_reports': IncidentReport.objects.all()}
-    return render(request, 'parts/report.html', incidents, incident_reports)
+    return render(request, 'parts/reports.html', incident_reports)
 
 
 @login_required(login_url='/dalBase/login/')

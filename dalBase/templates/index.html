@@ -29,20 +29,13 @@
                             <th>Kvitterad</th>
                             <th>Tid till ankomst</th>
                         </tr>
-                        <tr>
-                            <td>65SB</td>
-                            <td>Blomsterlund</td>
-                            <td>RD</td>
-                            <td>C</td>
-                            <td>18:04</td>
-                            <td>18:14</td>
-                        </tr>
+
                         <tr v-for="underway in underways">
                             <td>[[ underway.telephone.vacancy]]</td>
                             <td>[[ underway.telephone.last_name]]</td>
                             <td>[[ underway.telephone.competences]]</td>
                             <td>[[ underway.telephone.driverslicence]]</td>
-                            <td>[[ underway.created_at | moment("hh:mm")]]</td>
+                            <td>[[ underway.created_at | moment("HH:mm")]]</td>
                             <td>[[ underway.time]]</td>
                         </tr>
                     </table>

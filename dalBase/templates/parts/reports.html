@@ -1,0 +1,159 @@
+{% extends "parts/base.html" %}
+
+{% block title %}Dalarmos Base - Rapport{% endblock %}
+
+{% block content %}
+
+
+{% for ir in incident_reports%}
+
+<div class="modal fade" id="IRModal-{{ir.pk}}" tabindex="-1" role="dialog" aria-labelledby="IncidentReport">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ModalLabel-{{ir.pk}}">{{ ir.created_at | date:"H.i d.m.Y" }} | {{ ir.incident_id.address | title}} <span class="badge">{{ir.pk}}</span></h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">SMS-meddelande</div>
+                  <div class="panel-body">
+                    {{ ir.incident_message }}
+                  </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Beskrivning</div>
+                  <div class="panel-body">
+                    {{ ir.description }}
+                  </div>
+                </div>
+            </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Detaljer</div>
+                  <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <th>Alarmtyp i SMS</th>
+                            <td>{{ir.incident_id.type}}</td>
+                        </tr>
+                        <tr>
+                            <th>Alarmtyp i rapport</th>
+                            <td>{{ir.incident_type.incident_type}}</td>
+                        </tr>
+                        <tr>
+                            <th>Område</th>
+                            <td>{{ir.incident_area.incident_area_name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Address</th>
+                            <td>{{ir.incident_address}}</td>
+                        </tr>
+                        <tr>
+                            <th>Kommun</th>
+                            <td>{{ir.incident_city}}</td>
+                        </tr>
+                        <tr>
+                            <th>Bekräftad brand</th>
+                            <td>{{ir.confirmed_fire | yesno:"Ja,Nej,Kanske"}}</td>
+                        </tr>
+                        <tr>
+                            <th>Insats krävdes</th>
+                            <td>{{ir.action_taken | yesno:"Ja,Nej,Kanske"}}</td>
+                        </tr>
+                        <tr>
+                            <th>Individer på larm</th>
+                            <td>{{ir.active_users}}</td>
+                        </tr>
+
+                    </table>
+                  </div>
+                </div>
+            </div>
+              <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Personer på larm</div>
+                  <div class="panel-body">
+                    <table>
+                        {% for p in ir.users_on_incident.all %}
+                        <tr>
+                            <td>{{ p.vacancy }} - {{p.last_name}} , {{p.competences}}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+
+                  </div>
+                </div>
+            </div>
+
+        </div>
+          <div class="row">
+            <div class="col-md-6">
+                <div class="panel panel-default">
+                  <div class="panel-heading">Bilder</div>
+                  <div class="panel-body">
+                      {% if ir.image_1 %}
+                      <a href="/dalBase{{ ir.image_1.url }}" target="_blank">
+                        <img src="/dalBase{{ ir.image_1.url }}" height="100px">
+                      </a>
+                      {% endif %}
+                      {% if ir.image_2 %}
+                      <a href="/dalBase{{ ir.image_2.url }}" target="_blank">
+                        <img src="/dalBase{{ ir.image_2.url }}" height="100px">
+                      </a>
+                      {% endif %}
+                      {% if ir.image_3 %}
+                      <a href="/dalBase{{ ir.image_3.url }}" target="_blank">
+                        <img src="/dalBase{{ ir.image_3.url }}" height="100px">
+                      </a>
+                      {% endif %}
+                  </div>
+                </div>
+            </div>
+
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Stäng</button>
+        <button type="button" class="btn btn-primary">Redigera</button>
+          <button type="button" class="btn btn-primary">Skriv ut</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+<div class="container p-t-6" id="profileContainer">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <span><b>Larmrapporter</b></span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for incident in incident_reports %}
+                            <a href="#IRModal-{{incident.pk}}" data-toggle="modal" data-target="#IRModal-{{incident.pk}}" class="list-group-item">
+                                {{ incident.created_at | date:"H.i d.m.Y" }} | {{ incident.incident_id.type }}, {{ incident.incident_id.address}}
+                            </a>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
