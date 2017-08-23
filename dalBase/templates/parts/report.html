@@ -1,0 +1,63 @@
+{% extends "parts/base.html" %}
+
+{% block title %}Dalarmos Base - Rapport{% endblock %}
+
+{% block content %}
+
+
+{% for ir in incident_reports%}
+
+<div class="modal fade" id="IRModal-{{ir.pk}}" tabindex="-1" role="dialog" aria-labelledby="IncidentReport">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="ModalLabel-{{ir.pk}}">{{ir.incident}}</h4>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="control-label">Recipient:</label>
+            <input type="text" class="form-control" id="recipient-name">
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="control-label">Message:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+<div class="container p-t-6" id="profileContainer">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                <span><b>Larm</b></span>
+                </div>
+
+                <div class="panel-body">
+                    <div class="list-group">
+                        {% for incident in incident_reports %}
+                            <a href="#IRModal-{{incident.pk}}" class="list-group-item">
+                                {{ incident.created_at | date:"H.i d.m.Y" }} | {{ incident.type }}, {{ incident.address}}
+                            </a>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Open modal for @mdo</button>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

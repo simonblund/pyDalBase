@@ -2,14 +2,22 @@
 from django.shortcuts import render, redirect
 from rest_framework import generics
 from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST
-from .models import Incident, UnderWay, User
+from .models import Incident, UnderWay, User, IncidentReport
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+
 @login_required(login_url='/dalBase/login/') 
 def index(request):
     return render(request, 'index.html', content_type='text/html')
+
+
+@login_required(login_url='/dalBase/login/')
+def incidentlist(request):
+    incidents = {'incidents': Incident.objects.all()}
+    incident_reports = {'incident_reports': IncidentReport.objects.all()}
+    return render(request, 'parts/report.html', incidents, incident_reports)
 
 
 @login_required(login_url='/dalBase/login/')

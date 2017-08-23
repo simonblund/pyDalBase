@@ -92,6 +92,9 @@ class IncidentReport(models.Model):
     start_time_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     end_time_date = models.DateTimeField(auto_now=False, auto_now_add=False)
     author = models.ForeignKey(User, related_name='author')
+    image_1 = models.ImageField(upload_to='incident/%Y/%m/%d', blank=True)
+    image_2 = models.ImageField(upload_to='incident/%Y/%m/%d', blank=True)
+    image_3 = models.ImageField(upload_to='incident/%Y/%m/%d', blank=True)
     created_at = models.DateTimeField(auto_now=True, auto_created=True)
     updated_at = models.DateTimeField(auto_now=False, auto_created=False, blank=True)
 
