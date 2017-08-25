@@ -1,0 +1,20 @@
+{
+  "name": "dalbase",
+  "version": "0.0.1",
+  "description": "Dalarmos Base frontend",
+  "main": "index.js",
+  "dependencies": {
+    "vue": "^2.4.2",
+    "vue-moment": "^2.0.2"
+  },
+  "devDependencies": {
+    "webpack": "^3.5.5",
+    "webpack-init": "^0.1.2"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "author": "Simon Blomsterlund",
+  "license": "MIT"
+}

@@ -134,3 +134,4 @@ MEDIA_URL = '/media/'
 
 
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/dalBase/login/'

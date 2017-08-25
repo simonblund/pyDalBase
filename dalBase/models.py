@@ -134,3 +134,15 @@ class VehicleUnderWay(models.Model):
     def __str__(self):
         return '{} buy {}'.format(self.vehicle_id, self.created_at)
 
+
+class SoftwareNews(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    text = models.TextField()
+    priority = models.IntegerField()
+    show_on_login = models.BooleanField(default=False)
+    alert = models.BooleanField(default=False)
+    author = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now=True, auto_created=True)
+
+    def __str__(self):
+        return '{} SoftwareNews {}'.format(self.text, self.created_at)
