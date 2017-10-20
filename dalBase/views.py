@@ -41,7 +41,7 @@ class IncidentsApiView(generics.ListCreateAPIView):
 
 class LastIncidentApiView(generics.ListCreateAPIView):
     """This class defines the create behavior of our rest api."""
-    queryset = Incident.objects.order_by('created_at')[:1]
+    queryset = Incident.objects.order_by('-created_at')[:1]
     serializer_class = IncidentSerializer
 
     def perform_create(self, serializer):
