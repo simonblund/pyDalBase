@@ -1,9 +1,9 @@
 
 from django.shortcuts import render, redirect
-from rest_framework import generics
-from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST
-from .models import Incident, UnderWay, User, IncidentReport
-from django.contrib.auth.models import User
+from rest_framework import generics, viewsets
+from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST, IncidentReportserializer, UserSerializer
+from .models import Incident, UnderWay, IncidentReport, User
+from .jwt_authentication import get_user_jwt, JWTAuthenticationMiddleware
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -33,6 +33,16 @@ class IncidentsApiView(generics.ListCreateAPIView):
     """This class defines the create behavior of Incident Api."""
     queryset = Incident.objects.all()
     serializer_class = IncidentSerializer
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new incident."""
+        serializer.save()
+
+
+class IncidentReportApiView(generics.ListCreateAPIView):
+    """This class defines the create behavior of Incident Api."""
+    queryset = IncidentReport.objects.all()
+    serializer_class = IncidentReportserializer
 
     def perform_create(self, serializer):
         """Save the post data when creating a new incident."""
@@ -70,4 +80,14 @@ class UnderWayApiView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         """Save the post data when creating a new incident."""
         serializer.save()
+
+
+class UserView(generics.RetrieveAPIView):
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        jwuser = get_user_jwt(self.request)
+        return jwuser
+
+
 

@@ -15,7 +15,7 @@ const vm = new Vue({
 
     methods: {
         getIncident () {
-            axios.get('api/v1/incident?format=json')
+            axios.get('http://localhost:8000/dalBase/api/v1/incident?format=json')
               .then(function (response) {
                 vm.incident = response.data[0]
               })
@@ -24,7 +24,7 @@ const vm = new Vue({
               })
           },
           getUnderway () {
-            axios.get('api/v1/underway?format=json')
+            axios.get('http://localhost:8000/dalBase/api/v1/underway?format=json')
               .then(function (response) {
                 vm.underways = response.data
                 console.log(response.data)
@@ -33,5 +33,30 @@ const vm = new Vue({
                 console.log(error);
               })
           }
+    },
+})
+
+const vm1 = new Vue({
+    el: '#incidentReportsContainer',
+    delimiters: ["[[","]]"],
+    data: {
+     incidentreports: [],
+    },
+
+    mounted() {
+            this.getIncidentReports(),
+    },
+
+    methods: {
+        getIncidentReports () {
+            axios.get('/api/v1/incidentreport?format=json')
+              .then(function (response) {
+                vm1.incidentreports = response.data[0]
+              })
+              .catch(function (error) {
+                console.log(error);
+              })
+          },
+
     },
 })

@@ -7,6 +7,8 @@
 
 {% for ir in incident_reports%}
 
+
+
 <div class="modal fade" id="IRModal-{{ir.pk}}" tabindex="-1" role="dialog" aria-labelledby="IncidentReport">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
@@ -134,7 +136,7 @@
 {% endfor %}
 
 
-<div class="container p-t-6" id="profileContainer">
+<div class="container p-t-6" id="incidentReportsContainer">
     <div class="row">
         <div class="col-md-8">
             <div class="panel panel-default">
@@ -144,11 +146,7 @@
 
                 <div class="panel-body">
                     <div class="list-group">
-                        {% for incident in incident_reports %}
-                            <a href="#IRModal-{{incident.pk}}" data-toggle="modal" data-target="#IRModal-{{incident.pk}}" class="list-group-item">
-                                {{ incident.created_at | date:"H.i d.m.Y" }} | {{ incident.incident_id.type }}, {{ incident.incident_id.address}}
-                            </a>
-                        {% endfor %}
+                    [[incidentreports]]
 
                     </div>
                 </div>

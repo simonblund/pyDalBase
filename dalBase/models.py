@@ -38,7 +38,7 @@ class Incident(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{} by {}'.format(self.address, self.created_at)
+        return '{} at {}'.format(self.address, self.created_at)
 
 
 class UnderWay(models.Model):
@@ -49,14 +49,14 @@ class UnderWay(models.Model):
     created_at = models.DateTimeField(auto_now=True, auto_created=True)
 
     def __str__(self):
-        return '{} buy {}'.format(self.telephone.vacancy, self.created_at)
+        return '{} at {}'.format(self.telephone.vacancy, self.created_at)
 
 
 class IncidentType(models.Model):
     incident_type = models.CharField(max_length=40)
 
     def __str__(self):
-        return '{} incident_type'.format(self.incident_type)
+        return '{}'.format(self.incident_type)
 
 
 class IncidentArea(models.Model):
