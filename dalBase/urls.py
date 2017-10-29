@@ -8,14 +8,20 @@ from django.contrib.auth.views import login
 from django.conf import settings
 from django.conf.urls.static import static
 
-from .views import IncidentsApiView, LastIncidentApiView, UnderWayApiView, IncidentReportApiView, UserView
+from .views import IncidentsApiView, LastIncidentApiView, UnderWayApiView, IncidentReportViewSet, UserView
 
 from . import views
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register('testincidents', IncidentReportViewSet, base_name='testincidents')
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^api-token-auth/', obtain_jwt_token),
     url(r'^api-token-verify/', verify_jwt_token),
+
+    url(r'^api/v1/', include(router.urls)),
 
     url(r'^login/$', login, {'template_name': 'dalbase/login.html'}),
     url(r'^profile/$', views.profile, name='profile'),
@@ -26,7 +32,7 @@ urlpatterns = [
     url(r'^api/v1/incidents$', IncidentsApiView.as_view(), name="create"),
     url(r'^api/v1/incident$', LastIncidentApiView.as_view(), name="create"),
     url(r'^api/v1/underway$', UnderWayApiView.as_view(), name="create"),
-    url(r'^api/v1/incidentreport$', IncidentReportApiView.as_view(), name="create"),
+    # url(r'^api/v1/incidentreport$', IncidentReportApiView.as_view(), name="get_all"),
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

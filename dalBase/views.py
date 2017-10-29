@@ -1,7 +1,9 @@
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
 from rest_framework import generics, viewsets
-from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST, IncidentReportserializer, UserSerializer
+from rest_framework.response import Response
+from .serializers import IncidentSerializer, UnderWaySerializer, UnderWaySerializerPOST, IncidentReportserializer, \
+    UserSerializer, IncidentReportListSerializer, IncidentReportRetrieveSerializer
 from .models import Incident, UnderWay, IncidentReport, User
 from .jwt_authentication import get_user_jwt, JWTAuthenticationMiddleware
 from django.contrib.auth.decorators import login_required
@@ -33,16 +35,6 @@ class IncidentsApiView(generics.ListCreateAPIView):
     """This class defines the create behavior of Incident Api."""
     queryset = Incident.objects.all()
     serializer_class = IncidentSerializer
-
-    def perform_create(self, serializer):
-        """Save the post data when creating a new incident."""
-        serializer.save()
-
-
-class IncidentReportApiView(generics.ListCreateAPIView):
-    """This class defines the create behavior of Incident Api."""
-    queryset = IncidentReport.objects.all()
-    serializer_class = IncidentReportserializer
 
     def perform_create(self, serializer):
         """Save the post data when creating a new incident."""
@@ -82,6 +74,16 @@ class UnderWayApiView(generics.ListCreateAPIView):
         serializer.save()
 
 
+# class IncidentReportIndexApi(generics.ListCreateAPIView):
+    """This class defines the create behavior of Incident Api."""
+#    queryset = IncidentReport.objects.all()
+#    serializer_class = IncidentReportListSerializer
+#
+#   def perform_get(self, serializer):
+#        """Save the post data when creating a new incident."""
+#        return serializer.
+
+
 class UserView(generics.RetrieveAPIView):
     serializer_class = UserSerializer
 
@@ -90,4 +92,16 @@ class UserView(generics.RetrieveAPIView):
         return jwuser
 
 
+class IncidentReportViewSet(viewsets.ViewSet):
 
+    def list(self, request):
+        queryset = IncidentReport.objects.select_related('incident_id').all()
+        serializer = IncidentReportListSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = IncidentReport.objects.select_related('incident_id').select_related('incident_area')\
+            .select_related('incident_cause').all()
+        incidentreport = get_object_or_404(queryset, pk=pk)
+        serializer = IncidentReportRetrieveSerializer(incidentreport)
+        return Response(serializer.data)
