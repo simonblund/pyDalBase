@@ -1,7 +1,8 @@
 
 from rest_framework import serializers
-from .models import Incident, UnderWay, User, IncidentReport, IncidentType, IncidentArea, IncidentCause
+from .models import Incident, UnderWay, User, IncidentReport, IncidentType, IncidentArea, IncidentCause, VehicleUnderWay
 import logging
+from django.db import models
 logger = logging.getLogger(__name__)
 
 
@@ -80,10 +81,22 @@ class ShortUserSerializer(serializers.ModelSerializer):
         fields = ('id', 'vacancy', 'last_name')
 
 
+class VehicleUnderwaySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VehicleUnderWay
+        fields = ('id', 'vehicle_id', 'incident_id', 'created_at')
+
+# HAR JOBBAR JAG
+
+
 class ShortIncidentSerializer(serializers.ModelSerializer):
+    id = serializers.ManyRelatedField(child_relation=incident_id)
+    depth = 3
+
     class Meta:
         model = Incident
         fields = ('id', 'pos_lon', 'pos_lan', 'created_at')
+
 
 class IncidentReportListSerializer(serializers.ModelSerializer):
     incident_type = IncidentTypeSerializer(many=False, read_only=False)
@@ -99,6 +112,7 @@ class IncidentReportRetrieveSerializer(serializers.ModelSerializer):
     incident_cause = IncidentCauseSerializer(many=False, read_only=False)
     users_on_incident = ShortUserSerializer(many=True, read_only=True)
     incident_id = ShortIncidentSerializer(many=False, read_only=True)
+    depth = 3
 
     class Meta:
         model = IncidentReport
@@ -106,8 +120,7 @@ class IncidentReportRetrieveSerializer(serializers.ModelSerializer):
                   'incident_type', 'incident_type_of_alarm', 'incident_message',
                   'incident_address', 'incident_area', 'incident_city', 'incident_detail',
                   'description', 'confirmed_fire', 'action_taken', 'incident_cause', 'users_on_incident',
-                  'active_users', 'start_time_date', 'end_time_date', 'image_1',
-                  'image_2', 'image_3')
+                  'active_users', 'start_time_date', 'end_time_date', 'image_1', 'image_2', 'image_3')
         read_only_fields = ('created_at', 'id')
 
 
